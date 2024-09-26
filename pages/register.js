@@ -1,6 +1,7 @@
-// Import necessaey hooks from React and the Supabase client
+// Import necessary hooks from React and the Supabase client
 import { useState } from 'react';
 import { supabase } from '../utils/supabaseClient';
+import './Register.css'; // Import the CSS file for styles
 
 // Define the Register component
 export default function Register() {
@@ -11,7 +12,7 @@ export default function Register() {
     // State variable for storing error messages
     const [errorMessage, setErrorMessage] = useState('');
 
-    //Function to handle user registration
+    // Function to handle user registration
     const handleRegister = async (e) => {
         e.preventDefault(); // Prevent the default form submission behavior
         // Call Supabase's signUp method with the email and password provided by the user
@@ -28,12 +29,14 @@ export default function Register() {
             setPassword(''); // Clear the password input field
         }
     };
+
     // Render the registration form
     return (
-        <div>
+        <div className="register-container">
             <h1>Register</h1>
             <form onSubmit={handleRegister}>
                 <input
+                    className="input-field"
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -41,15 +44,16 @@ export default function Register() {
                     required
                 />
                 <input
+                    className="input-field"
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Password"
                     required
                 />
-                <button type="submit">Register</button>
+                <button className="register-button" type="submit">Register</button>
             </form>
-            {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+            {errorMessage && <p className="error-message">{errorMessage}</p>}
         </div>
     );
 }

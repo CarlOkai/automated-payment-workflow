@@ -1,0 +1,71 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(to bottom, #f8f8f8, #ffffff);
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Full viewport height */
+    margin: 0; /* Remove default margin */
+}
+
+.login-container {
+    max-width: 800px; /* Maximum width for the login box */
+    width: 90%; /* Use 90% of the width to allow some margin on smaller screens */
+    margin: 20px; /* Add some margin for smaller screens */
+    padding: 40px; /* Padding for inner space */
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 28px; /* Font size for the title */
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items horizontally */
+}
+
+.input-field {
+    width: 100%;
+    padding: 15px; /* Increased padding for input fields */
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: border 0.3s, box-shadow 0.3s;
+}
+
+.input-field:focus {
+    border: 1px solid #007aff; /* iOS blue */
+    box-shadow: 0 0 5px rgba(0, 122, 255, 0.5);
+    outline: none; /* Remove default outline */
+}
+
+.login-button {
+    width: 100%;
+    background-color: #007aff; /* iOS blue */
+    color: white;
+    padding: 15px; /* Increased padding for the button */
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s, transform 0.3s;
+    margin-top: 10px; /* Add margin for spacing */
+}
+
+.login-button:hover {
+    background-color: #005bb5; /* Darker blue for hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.error-message {
+    color: red;
+    text-align: center;
+    margin-top: 10px;
+}

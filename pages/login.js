@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { supabase } from '../utils/supabaseClient';
+import './Login.css'; // Import the CSS file
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -22,10 +23,11 @@ export default function Login() {
   };
 
   return (
-    <div>
+    <div className="login-container"> {/* Apply the login-container class */}
       <h1>Login</h1>
       <form onSubmit={handleLogin}>
         <input
+          className="input-field" // Apply the input-field class
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -33,15 +35,16 @@ export default function Login() {
           required
         />
         <input
+          className="input-field" // Apply the input-field class
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
           required
         />
-        <button type="submit">Login</button>
+        <button className="login-button" type="submit">Login</button> {/* Apply the login-button class */}
       </form>
-      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+      {errorMessage && <p className="error-message">{errorMessage}</p>} {/* Apply the error-message class */}
     </div>
   );
 }
