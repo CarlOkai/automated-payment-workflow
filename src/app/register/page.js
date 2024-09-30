@@ -1,7 +1,8 @@
+"use client"; // Mark this component as a Client Component
 // Import necessary hooks from React and the Supabase client
 import { useState } from 'react';
-import { supabase } from '../utils/supabaseClient';
-import './Register.css'; // Import the CSS file for styles
+import { supabase } from '../../utils/supabaseClient'; // Adjusted path
+import './register.css'; // Import the CSS file for styles
 
 // Define the Register component
 export default function Register() {

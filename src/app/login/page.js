@@ -1,6 +1,8 @@
+"use client"; // This line tells Next.js that this is a Client Component"
 import { useState } from 'react';
-import { supabase } from '../utils/supabaseClient';
-import './Login.css'; // Import the CSS file
+import './login.css'; // Import the CSS file
+import { supabase } from '../../utils/supabaseClient'; // Adjusted path
+
 
 export default function Login() {
   const [email, setEmail] = useState('');
