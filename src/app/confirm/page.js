@@ -1,38 +1,42 @@
-// src/app/confirm/page.js
-'use client'; // Mark this component as a client component
-
+'use client';
 import { useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation'; // Use next/navigation
+import { useRouter, useSearchParams } from 'next/navigation';
 
 const ConfirmPage = () => {
-  const router = useRouter();
-  const searchParams = useSearchParams(); // Get search parameters
-  const access_token = searchParams.get('access_token'); // Get the access token from URL parameters
+    const router = useRouter();
+    //useRouter: like a map on the website, helps move people from one page to another
+    const searchParams = useSearchParams(); // Get search parameters
+    //useSearchParams: looks at the web address(URL) and helps grab the access token from it
+    const access_token = searchParams.get('access_token'); // Get the access token from URL parameters
+    //accrss token is the secrete code in the link, tells us if user is legit
+    useEffect(() => {
+        //runs when page first loads and checks if theres an access token
+        const confirmUser = async () => {
 
-  useEffect(() => {
-    const confirmUser = async () => {
-      // Your logic to confirm the user using the access_token
-      // e.g., call the Supabase API to confirm the user
-      if (access_token) {
-        const { error } = await supabase.auth.api.confirmUser(access_token);
-        if (error) {
-          console.error('Error confirming user:', error.message);
-          return;
-        }
-        // Redirect or show a success message
-        router.push('/success'); // Redirect to a success page or wherever appropriate
-      }
-    };
+            if (access_token) {
 
-    confirmUser();
-  }, [access_token, router]); // Run the effect when access_token or router changes
+                const { error } = await supabase.auth.api.confirmUser(access_token);
+                if (error) {
+                    //If there's an error during the confirmation process, it will be handled here.
+                    console.error('Error confirming user:', error.message);
+                    //Logs the error message to the console if the confirmation fails
+                    return;
+                    //Exits the function early if there is an error
+                }
+                //If no error occurs, user confirmation is successful
+                router.push('/success'); // Redirect to a success page after successful confirmation
+            }
+        };
 
-  return (
-    <div>
-      <h2>Confirming your signup...</h2>
-      {/* You might want to add a loading state here */}
-    </div>
-  );
+        confirmUser();
+    }, [access_token, router]); // Run the effect when access_token or router changes
+
+    return (
+        <div>
+            <h2>Confirming your signup...</h2>
+            
+        </div>
+    );
 };
 
 export default ConfirmPage;
