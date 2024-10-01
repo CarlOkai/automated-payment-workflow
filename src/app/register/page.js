@@ -1,19 +1,19 @@
 "use client"; // Mark this component as a Client Component
-// Import necessary hooks from React and the Supabase client
+
 import { useState } from 'react';
-import { supabase } from '../../utils/supabaseClient'; // Adjusted path
-import './register.css'; // Import the CSS file for styles
+import { supabase } from '../../utils/supabaseClient'; 
+import './register.css'; //Import the CSS file for styles
 
 // Define the Register component
 export default function Register() {
-    // State variable for the user's email input
     const [email, setEmail] = useState('');
-    // State variable for the user's password input
+    //State variable for the user's email input
     const [password, setPassword] = useState('');
-    // State variable for storing error messages
+    //State variable for the user's password input
     const [errorMessage, setErrorMessage] = useState('');
-
-    // Function to handle user registration
+    //State variable for storing error messages
+    
+    //Function to handle user registration
     const handleRegister = async (e) => {
         e.preventDefault(); // Prevent the default form submission behavior
         // Call Supabase's signUp method with the email and password provided by the user
@@ -21,17 +21,17 @@ export default function Register() {
             email,
             password,
         });
-        // Check if there was an error during registration
+        //Check if there was an error during registration
         if (error) {
-            setErrorMessage(error.message); // Set the error message to be displayed
+            setErrorMessage(error.message); //Set the error message to be displayed
         } else {
             alert('Registration successful! Check your email for a verification link.');
-            setEmail(''); // Clear the email input field
-            setPassword(''); // Clear the password input field
+            setEmail(''); //Clear the email input field
+            setPassword(''); //Clear the password input field
         }
     };
 
-    // Render the registration form
+    //registration form
     return (
         <div className="register-container">
             <h1>Register</h1>

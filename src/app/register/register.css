@@ -48,7 +48,7 @@ form {
 
 .register-button {
     width: 100%;
-    background-color: #007aff; /* iOS blue */
+    background-color: #007aff; 
     color: white;
     padding: 15px; /* Increased padding for the button */
     border: none;

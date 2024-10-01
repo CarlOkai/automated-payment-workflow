@@ -41,14 +41,14 @@ form {
 }
 
 .input-field:focus {
-    border: 1px solid #007aff; /* iOS blue */
+    border: 1px solid #007aff;
     box-shadow: 0 0 5px rgba(0, 122, 255, 0.5);
     outline: none; /* Remove default outline */
 }
 
 .login-button {
     width: 100%;
-    background-color: #007aff; /* iOS blue */
+    background-color: #007aff; 
     color: white;
     padding: 15px; /* Increased padding for the button */
     border: none;
