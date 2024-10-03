@@ -7,16 +7,16 @@ import BudgetRequestForm from "./request";
 import ProtectedRoute from "../../components/ProtectedRoute";
 
 const Dashboard = () => {
-	const [requests, setRequests] = useState([]);
-	const [loading, setLoading] = useState(true);
+	const [requests, setRequests] = useState([]); //state to store budget requests
+	const [loading, setLoading] = useState(true); //state to show loading indicator while data is being fetched
 
 	useEffect(() => {
 		const fetchRequests = async () => {
-			const { data: user } = await supabase.auth.getUser();
+			const { data: user } = await supabase.auth.getUser(); //Get the currently logged in user
 			const { data, error } = await supabase
-				.from("budget_requests")
-				.select("*")
-				.eq("user_id", user?.id); // Fetch requests for the current user
+				.from("budget_requests") //Fetch data from the budhet_requests table
+				.select("*") //select all columns
+				.eq("user_id", user?.id); // Fetch only requests for the current user
 
 			if (error) {
 				console.error(error);
@@ -29,11 +29,7 @@ const Dashboard = () => {
 	}, []);
 
 	if (loading) {
-		return (
-			<div className="h-[100dvh] w-full flex items-center justify-center ">
-				Loading...
-			</div>
-		);
+		return <div>Loading...</div>; // show this wile the data is loading
 	}
 
 	return (
