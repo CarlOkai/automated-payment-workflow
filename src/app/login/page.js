@@ -1,35 +1,35 @@
 "use client"; 
-//client-side component, meaning it will be run in the browser, not on the server.
+// Client-side component, meaning it will be run in the browser, not on the server.
 import { useState } from 'react';
-//used to create and manage component state (e.g., variables like email and password).
+// Used to create and manage component state (e.g., variables like email and password).
 import './login.css'; 
 // Import the CSS file
-import { supabase } from '../../utils/supabaseClient'; // Adjusted path
-
+import { supabase } from '../../utils/supabaseClient'; 
+import { useRouter } from 'next/navigation';
 
 export default function Login() {
+  const router = useRouter(); // Initialize the router
   const [email, setEmail] = useState('');
-  //sets up state to store email entered by user
+  // Sets up state to store email entered by user
   const [password, setPassword] = useState('');
-  //sets up state to store password entered by user
+  // Sets up state to store password entered by user
   const [errorMessage, setErrorMessage] = useState('');
-  //sets up state to store any error message if login fails
+  // Sets up state to store any error message if login fails
 
   const handleLogin = async (e) => {
-    //function called when user clicks the login button
+    // Function called when user clicks the login button
     e.preventDefault();
-    //prevents page from refreshing when form is submitted
+    // Prevents page from refreshing when form is submitted
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
 
     if (error) {
-      setErrorMessage(error.message);
+      setErrorMessage(error.message); // Set error message if login fails
     } else {
-      alert('Login successful!');
-      //If login is successful, it shows an alert saying "Login successful!"
-      //Code will be addded to redirect user to another page - Carl
+      // Redirect to dashboard after successful login
+      router.push('/dashboard');
     }
   };
 

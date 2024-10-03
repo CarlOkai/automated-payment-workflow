@@ -2,36 +2,47 @@
 
 import { useState } from 'react';
 import { supabase } from '../../utils/supabaseClient'; 
-import './register.css'; //Import the CSS file for styles
+import './register.css'; // Import the CSS file for styles
 
 // Define the Register component
 export default function Register() {
     const [email, setEmail] = useState('');
-    //State variable for the user's email input
+    // State variable for the user's email input
     const [password, setPassword] = useState('');
-    //State variable for the user's password input
+    // State variable for the user's password input
     const [errorMessage, setErrorMessage] = useState('');
-    //State variable for storing error messages
+    // State variable for storing error messages
     
-    //Function to handle user registration
+    // Function to handle user registration
     const handleRegister = async (e) => {
-        e.preventDefault(); // Prevent the default form submission behavior
-        // Call Supabase's signUp method with the email and password provided by the user
-        const { error } = await supabase.auth.signUp({
+        e.preventDefault();
+    
+        const response = await supabase.auth.signUp({
             email,
             password,
         });
-        //Check if there was an error during registration
+    
+        console.log('Response from Supabase:', response); // Log the entire response
+    
+        const { user, session, error } = response; // Destructure user, session, and error from the response
+    
+        console.log('User:', user); // Log user details
+        console.log('Session:', session); // Log session details
+        console.log('Error:', error); // Log error details
+    
         if (error) {
-            setErrorMessage(error.message); //Set the error message to be displayed
+            setErrorMessage(error.message);
         } else {
+            if (session) {
+                console.log('Access Token:', session.access_token); // Log access token if available
+            }
             alert('Registration successful! Check your email for a verification link.');
-            setEmail(''); //Clear the email input field
-            setPassword(''); //Clear the password input field
+            setEmail('');
+            setPassword('');
         }
     };
-
-    //registration form
+    
+    // Registration form
     return (
         <div className="register-container">
             <h1>Register</h1>
