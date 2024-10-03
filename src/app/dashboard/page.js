@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "../../utils/supabaseClient";
 import "./dashboard.css";
 import BudgetRequestForm from "./request";
+import ProtectedRoute from "../../components/ProtectedRoute";
 
 const Dashboard = () => {
 	const [requests, setRequests] = useState([]);
@@ -36,13 +37,15 @@ const Dashboard = () => {
 	}
 
 	return (
-		<div className="p-6">
-			<h1 className="text-3xl font-bold text-center">Department Dashboard</h1>
-			<h2 className="text-black/60 text-center text-lg">
-				Submit a Budget Request
-			</h2>
-			<BudgetRequestForm />
-		</div>
+		<ProtectedRoute requiredRole={"department_user"}>
+			<div className="p-6">
+				<h1 className="text-3xl font-bold text-center">Department Dashboard</h1>
+				<h2 className="text-black/60 text-center text-lg">
+					Submit a Budget Request
+				</h2>
+				<BudgetRequestForm />
+			</div>
+		</ProtectedRoute>
 	);
 };
 

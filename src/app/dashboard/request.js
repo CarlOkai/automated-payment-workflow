@@ -35,7 +35,7 @@ const BudgetRequestForm = () => {
 	};
 
 	return (
-		<div>
+		<div className="mt-7">
 			<form onSubmit={handleSubmit}>
 				<label>
 					Department:
