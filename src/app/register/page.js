@@ -4,9 +4,15 @@ import { useState } from "react";
 import { supabase } from "../../utils/supabaseClient";
 import "./register.css"; // Import the CSS file for styles
 import Link from "next/link";
+import { useAuthSession } from "@/hooks/useAuthSesssion";
+import { useRouter } from "next/navigation";
 
 // Define the Register component
 export default function Register() {
+	const { session } = useAuthSession();
+
+	const router = useRouter(); // Initialize the router
+	if (session) router.push("/dashboard");
 	const [email, setEmail] = useState("");
 	// State variable for the user's email input
 	const [password, setPassword] = useState("");

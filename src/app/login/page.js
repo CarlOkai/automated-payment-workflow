@@ -7,9 +7,13 @@ import "./login.css";
 import { supabase } from "../../utils/supabaseClient";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useAuthSession } from "@/hooks/useAuthSesssion";
 
 export default function Login() {
+	const { session } = useAuthSession();
+
 	const router = useRouter(); // Initialize the router
+	if (session) router.push("/dashboard");
 	const [email, setEmail] = useState("");
 	// Sets up state to store email entered by user
 	const [password, setPassword] = useState("");
