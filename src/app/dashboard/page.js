@@ -1,60 +1,49 @@
 "use client"; //runs as a Client Component
 
-import { useState, useEffect } from 'react';
-import { supabase } from '../../utils/supabaseClient'; 
-import './dashboard.css'; 
+import { useState, useEffect } from "react";
+import { supabase } from "../../utils/supabaseClient";
+import "./dashboard.css";
+import BudgetRequestForm from "./request";
 
 const Dashboard = () => {
-  const [requests, setRequests] = useState([]);
-  const [loading, setLoading] = useState(true);
+	const [requests, setRequests] = useState([]);
+	const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchRequests = async () => {
-      const { data: user } = await supabase.auth.getUser();
-      const { data, error } = await supabase
-        .from('budget_requests')
-        .select('*')
-        .eq('user_id', user?.id); // Fetch requests for the current user
-      
-      if (error) {
-        console.error(error);
-      } else {
-        setRequests(data);
-      }
-      setLoading(false);
-    };
-    fetchRequests();
-  }, []);
+	useEffect(() => {
+		const fetchRequests = async () => {
+			const { data: user } = await supabase.auth.getUser();
+			const { data, error } = await supabase
+				.from("budget_requests")
+				.select("*")
+				.eq("user_id", user?.id); // Fetch requests for the current user
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+			if (error) {
+				console.error(error);
+			} else {
+				setRequests(data);
+			}
+			setLoading(false);
+		};
+		fetchRequests();
+	}, []);
 
-  return (
-    <div>
-      <h1>Department Dashboard</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Amount</th>
-            <th>Purpose</th>
-            <th>Deadline</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {requests.map((request) => (
-            <tr key={request.id}>
-              <td>{request.amount}</td>
-              <td>{request.purpose}</td>
-              <td>{request.deadline}</td>
-              <td>{request.status}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
+	if (loading) {
+		return (
+			<div className="h-[100dvh] w-full flex items-center justify-center ">
+				Loading...
+			</div>
+		);
+	}
+
+	return (
+		<div className="p-6">
+			<h1 className="text-3xl font-bold text-center">Department Dashboard</h1>
+			<h2 className="text-black/60 text-center text-lg">
+				Submit a Budget Request
+			</h2>
+			<BudgetRequestForm />
+		</div>
+	);
 };
 
 export default Dashboard;
