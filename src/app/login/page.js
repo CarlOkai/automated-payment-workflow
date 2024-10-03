@@ -28,7 +28,7 @@ export default function Login() {
     if (error) {
       setErrorMessage(error.message); // Set error message if login fails
     } else {
-      // Redirect to dashboard after successful login
+      //Redirect to dashboard after successful login
       router.push('/dashboard');
     }
   };

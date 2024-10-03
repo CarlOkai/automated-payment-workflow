@@ -1,7 +1,7 @@
 'use client';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { supabase } from '../../utils/supabaseClient'; // Ensure this path is correct
+import { supabase } from '../../utils/supabaseClient'; 
 
 const ConfirmPage = () => {
     const router = useRouter();
