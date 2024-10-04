@@ -28,6 +28,15 @@ const Dashboard = () => {
 		fetchRequests();
 	}, []);
 
+	const handleSignOut = async () => {
+		const { error } = await supabase.auth.signOut(); // Sign the user out
+		if (error) {
+			console.error("Error signing out:", error.message);
+		} else {
+			window.location.href = "/login"; // Redirect to the login page
+		}
+	};
+
 	if (loading) {
 		return <div>Loading...</div>; // show this wile the data is loading
 	}
@@ -40,6 +49,13 @@ const Dashboard = () => {
 					Submit a Budget Request
 				</h2>
 				<BudgetRequestForm />
+				{/* Sign Out Button */}
+				<button
+					onClick={handleSignOut}
+					className="button" // Add margin-top for spacing
+			>
+					Sign Out
+				</button>
 			</div>
 		</ProtectedRoute>
 	);

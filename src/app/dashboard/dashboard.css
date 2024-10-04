@@ -6,4 +6,19 @@
   }
   
   /* Add more styles as needed */
+  .sign-out-button {
+    margin-top: 20px; /* Space above the button */
+    padding: 10px 20px; /* Padding around the text */
+    background-color: #007aff; /* Red background */
+    color: white; /* White text */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 16px; /* Larger text */
+  }
+  
+  .sign-out-button:hover {
+    background-color: #005bb5; /* Darker blue for hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
   
