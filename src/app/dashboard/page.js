@@ -85,7 +85,7 @@ const Dashboard = () => {
 	
 			if (userRole === "management_user") {
 				// Redirect to all requests page
-				router.push("/dashboard/allRequests");
+				router.push("/dashboard/all-requests");
 				console.log("AllRequests component loaded");
 
 			} else {
