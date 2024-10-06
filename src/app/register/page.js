@@ -1,24 +1,32 @@
 "use client"; // Mark this component as a Client Component
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { supabase } from "../../utils/supabaseClient";
-import "./register.css"; // Import the CSS file for styles
+import "./register.css";
 import Link from "next/link";
-import { useAuthSession } from "@/hooks/useAuthSesssion";
 import { useRouter } from "next/navigation";
 
 // Define the Register component
 export default function Register() {
-	const { session } = useAuthSession();
-
-	const router = useRouter(); // Initialize the router
-	if (session) router.push("/dashboard");
+	const router = useRouter();
 	const [email, setEmail] = useState("");
-	// State variable for the user's email input
 	const [password, setPassword] = useState("");
-	// State variable for the user's password input
 	const [errorMessage, setErrorMessage] = useState("");
-	// State variable for storing error messages
+
+	// On component mount, sign out any existing session
+	useEffect(() => {
+		const checkSession = async () => {
+			const { data: sessionData } = await supabase.auth.getSession();
+
+			if (sessionData?.session) {
+				// Log out the session before rendering the register page
+				await supabase.auth.signOut();
+				console.log("Logged out existing session");
+			}
+		};
+
+		checkSession();
+	}, []); // Only runs once when the component is mounted
 
 	// Function to handle user registration
 	const handleRegister = async (e) => {
@@ -29,29 +37,19 @@ export default function Register() {
 			password,
 		});
 
-		console.log("Response from Supabase:", response); // Log the entire response
+		console.log("Response from Supabase:", response);
 
-		const { user, session, error } = response; // Destructure user, session, and error from the response
-
-		console.log("User:", user); // Log user details
-		console.log("Session:", session); // Log session details
-		console.log("Error:", error); // Log error details
+		const { user, session, error } = response;
 
 		if (error) {
 			setErrorMessage(error.message);
 		} else {
-			if (session) {
-				console.log("Access Token:", session.access_token); // Log access token if available
-			}
-			alert(
-				"Registration successful! Check your email for a verification link."
-			);
+			alert("Registration successful! Check your email for a verification link.");
 			setEmail("");
 			setPassword("");
 		}
 	};
 
-	// Registration form
 	return (
 		<div className="register-container">
 			<h1>Register</h1>

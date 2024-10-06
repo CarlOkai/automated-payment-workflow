@@ -10,7 +10,7 @@ import ProtectedRoute from "../../components/ProtectedRoute";
 import { useRouter } from "next/navigation";
 
 const Dashboard = () => {
-	const router = useRouter(); 
+	const router = useRouter();
 	const [requests, setRequests] = useState([]); // State to store budget requests
 	const [loading, setLoading] = useState(true); // State to show loading indicator while data is being fetched
 	const [showRequests, setShowRequests] = useState(false); // State to manage the display of budget requests
@@ -53,41 +53,45 @@ const Dashboard = () => {
 				console.error("Error fetching user:", userError);
 				return;
 			}
-	
+
 			const user = userData?.user;
-	
+
 			if (!user || !user.id) {
 				console.error("User ID is missing or undefined.");
+				alert("You do not have permission to view all budget requests.");
 				return;
 			}
-	
+
 			console.log("User ID:", user.id);
-	
+
 			const { data: roleData, error: roleError } = await supabase
 				.from("users")
 				.select("role")
 				.eq("id", user.id)
 				.single();
-	
+
 			if (roleError) {
 				console.error("Error fetching user role:", roleError);
+				alert("You do not have permission to view all budget requests.");
 				return;
 			}
-	
+
 			if (!roleData) {
 				console.error("No user found with the provided ID.");
+				alert("You do not have permission to view all budget requests.");
 				return;
 			}
-	
+
 			const userRole = roleData.role; // Directly access role
-	
+
 			console.log("User role from users table:", userRole);
-	
+
 			if (userRole === "management_user") {
 				// Redirect to all requests page
 				router.push("/dashboard/all-requests");
 				console.log("AllRequests component loaded");
-
+			} else if (!userRole) { // Check if userRole is empty or undefined
+				alert("You do not have a role assigned. Please contact an administrator.");
 			} else {
 				alert("You do not have permission to view all budget requests.");
 			}
@@ -95,8 +99,8 @@ const Dashboard = () => {
 			console.error("An unexpected error occurred:", error);
 		}
 	};
-	
-	
+
+
 
 
 
