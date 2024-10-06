@@ -38,9 +38,7 @@ const BudgetRequestForm = () => {
 		});
 
 		// Cleanup subscription on unmount
-		return () => {
-			subscription?.unsubscribe();
-		};
+
 	}, []); // Empty dependency array to run only once when the component mounts
 
 	const handleSubmit = async (e) => {
